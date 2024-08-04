@@ -54,6 +54,7 @@
                                 {{ $category->description }}
                             </td>
                             <td class="px-6 py-4">
+                                {{-- <a href="{{ route('item.show') }}"></a> --}}
                                 <a href={{ route('category.edit', $category->id) }} type="button"
                                     class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
                                 <form class="inline-block" action="{{ route('category.destroy', $category->id) }}"

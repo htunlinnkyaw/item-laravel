@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view("item.create");
+        $categories = Category::all();
+        return view("item.create", compact("categories"));
     }
 
     /**
@@ -35,6 +37,8 @@ class ItemController extends Controller
         $item->price = $request->price;
         $item->stock = $request->stock;
         $item->description = $request->description;
+        $item->status = $request->status;
+        $item->category_id = $request->category_id;
         $item->save();
 
         return redirect()->route("item.index");
@@ -45,7 +49,8 @@ class ItemController extends Controller
      */
     public function show(string $id)
     {
-
+        $item = Item::find($id);
+        return view("item.detail", compact("item"));
     }
 
     /**
@@ -53,8 +58,9 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
+        $categories = Category::all();
         $item = Item::find($id);
-        return view("item.edit", compact("item"));
+        return view("item.edit", compact("item", "categories"));
     }
 
     /**
@@ -67,6 +73,8 @@ class ItemController extends Controller
         $item->price = $request->price;
         $item->stock = $request->stock;
         $item->description = $request->description;
+        $item->status = $request->status;
+        $item->category_id = $request->category_id;
         $item->update();
 
         return redirect()->route('item.index');

@@ -51,7 +51,6 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $category = Category::find($category->id); // changes
         return view('category.edit', compact('category'));
     }
 
