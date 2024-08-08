@@ -27,22 +27,33 @@
                     <label for="name"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                     <input type="text" name="name" id="name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        placeholder="Something.." required />
+                        class="bg-gray-50 border @error('name')
+                            border-red-600
+                        @enderror border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Something.." value="{{ old('name') }}" />
+                    @error('name')
+                        <p class="text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <label for="price"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                    <input type="number" name="price" id="price" placeholder=""
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        required />
+                    <input type="number" name="price" id="price" placeholder="" value="{{ old('price') }}"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
+
+                    @error('price')
+                        <p class="text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <label for="stock"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
-                    <input type="number" name="stock" id="stock"
+                    <input type="number" name="stock" id="stock" value="{{ old('stock') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        placeholder="0" required />
+                        placeholder="0" />
+                    @error('stock')
+                        <p class="text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
 
@@ -53,7 +64,10 @@
                     </label>
                     <textarea name="description" id="description" rows="2"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Something..."></textarea>
+                        placeholder="Something...">{{ old('description') }}</textarea>
+                    @error('description')
+                        <p class="text-red-600">{{ $message }}</p>
+                    @enderror
 
                 </div>
 
@@ -66,12 +80,19 @@
                         Category</label>
                     <select id="categories" name="category_id"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="">Choose a Category</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}
+                            <option value="{{ $category->id }}"
+                                {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
                             </option>
                         @endforeach
                     </select>
 
+
+                    @error('category_id')
+                        <p class="text-red-600">{{ $message }}</p>
+                    @enderror
 
                 </div>
 

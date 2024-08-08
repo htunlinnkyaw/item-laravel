@@ -31,7 +31,15 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+
+        $request->validate([
+            "name" => "required",
+            "price" => 'required',
+            "stock" => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+        ]);
+
         $item = new Item();
         $item->name = $request->name;
         $item->price = $request->price;
@@ -68,6 +76,16 @@ class ItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+
+        $request->validate([
+            "name" => "required",
+            "price" => 'required',
+            "stock" => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+        ]);
+
         $item = Item::find($id);
         $item->name = $request->name;
         $item->price = $request->price;

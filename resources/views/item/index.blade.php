@@ -14,7 +14,7 @@
 
 
     {{-- {{ $items }} --}}
-    <div class="container max-w-7xl mx-auto mt-10">
+    <div class="container max-w-4xl mx-auto mt-10">
         <div>
 
 
