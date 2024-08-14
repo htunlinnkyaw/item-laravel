@@ -11,9 +11,19 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $items = Item::where('name', 'LIKE', "%{$query}%")->orWhere('status', 'LIKE', "%{$query}%")->paginate(5);
+
+        return view('item.index', compact('items'));
+    }
+
+
     public function index()
     {
-        $items = Item::all();
+        $items = Item::paginate(5);
         return view('item.index', compact('items'));
     }
 
@@ -33,11 +43,12 @@ class ItemController extends Controller
     {
 
         $request->validate([
-            "name" => "required",
-            "price" => 'required',
-            "stock" => 'required',
-            'description' => 'required',
-            'category_id' => 'required',
+            'name' => 'required|string|max:10|min:5|unique:items,name',
+            'price' => 'required|integer|max:10000|min:100',
+            'stock' => 'required|integer|max:100|min:10',
+            'description' => 'required|string|max:200|min:10',
+            'category_id' => 'required|integer|max:3|min:1',
+
         ]);
 
         $item = new Item();
@@ -79,11 +90,12 @@ class ItemController extends Controller
 
 
         $request->validate([
-            "name" => "required",
-            "price" => 'required',
-            "stock" => 'required',
-            'description' => 'required',
-            'category_id' => 'required',
+            'name' => 'required|string|max:10|min:5',
+            'price' => 'required|integer|max:1000|min:100',
+            'stock' => 'required|integer|max:100|min:10',
+            'description' => 'required|string|max:200|min:10',
+            'category_id' => 'required|integer|max:3|min:1',
+
         ]);
 
         $item = Item::find($id);

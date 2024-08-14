@@ -85,6 +85,10 @@
                 </tbody>
             </table>
 
+            <div class="mt-5">
+                {{ $categories->links('pagination::tailwind') }}
+            </div>
+
         </div>
     </div>
 
