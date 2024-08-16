@@ -19,7 +19,9 @@
 
         <div
             class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-            <form class="space-y-4" action={{ route('item.update', $item->id) }} method="post">
+            <form class="space-y-4" action={{ route('item.update', $item->id) }} method="post"
+                enctype="multipart/form-data">
+
                 @method('put')
                 @csrf
                 <div>
@@ -58,6 +60,16 @@
                     @error('stock')
                         <p class="text-red-600">{{ $message }}</p>
                     @enderror
+                </div>
+
+                <div>
+                    <label for="image"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
+                    <img src="{{ asset('storage/item_images/' . $item->image) }}" width="150" alt="">
+                    <input type="file" value="" name="image" id="image" value="{{ old('image') }}"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="0" />
+
                 </div>
                 <div>
 

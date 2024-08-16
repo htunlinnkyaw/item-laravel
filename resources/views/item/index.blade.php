@@ -62,6 +62,9 @@
                             <th scope="col" class="px-6 py-3">
                                 Status
                             </th>
+                            <th scope="col" class="px-6 py-3">
+                                Image
+                            </th>
                             <th scope="col" class="px-6 py-3 ">
                                 Category
                             </th>
@@ -95,6 +98,10 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $item->status }}
+                                </td>
+                                <td>
+                                    <img src="{{ asset('storage/item_images/' . $item->image) }}"
+                                        class="w-[80px] rounded-full" alt="">
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="capitalize">{{ $item->category->name }}</span>

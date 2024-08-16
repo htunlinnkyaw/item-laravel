@@ -51,6 +51,12 @@ class ItemController extends Controller
 
         ]);
 
+        if ($request->image) {
+            $file = $request->image;
+            $newName = "item_image" . uniqid() . "." . $file->extension();
+            $file->storeAs('public/item_images', $newName);
+        }
+
         $item = new Item();
         $item->name = $request->name;
         $item->price = $request->price;
@@ -58,6 +64,7 @@ class ItemController extends Controller
         $item->description = $request->description;
         $item->status = $request->status;
         $item->category_id = $request->category_id;
+        $item->image = $newName;
         $item->save();
 
         return redirect()->route("item.index");
@@ -105,7 +112,18 @@ class ItemController extends Controller
         $item->description = $request->description;
         $item->status = $request->status;
         $item->category_id = $request->category_id;
+
+        if ($request->image) {
+            $file = $request->image;
+            $newName = "item_image" . uniqid() . "." . $file->extension();
+            $file->storeAs('public/item_images', $newName);
+            $item->image = $newName;
+        }
+
         $item->update();
+
+
+
 
         return redirect()->route('item.index');
     }
