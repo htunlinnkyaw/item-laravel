@@ -23,7 +23,12 @@ class ItemController extends Controller
 
     public function index()
     {
-        $items = Item::paginate(5);
+        $items = Item::all();
+
+        foreach ($items as $item) {
+            $item->item_images = json_decode($item->item_images, true);
+        }
+
         return view('item.index', compact('items'));
     }
 
@@ -51,10 +56,21 @@ class ItemController extends Controller
 
         ]);
 
-        if ($request->image) {
-            $file = $request->image;
-            $newName = "item_image" . uniqid() . "." . $file->extension();
-            $file->storeAs('public/item_images', $newName);
+        // signle file upload
+        // if ($request->image) {
+        //     $file = $request->image;
+        //     $newName = "item_image" . uniqid() . "." . $file->extension();
+        //     $file->storeAs('public/item_images', $newName);
+        // }
+
+        $images = [];
+
+        if ($request->images) {
+            foreach ($request->file('images') as $file) {
+                $newName = "item_image" . uniqid() . "." . $file->extension();
+                $file->storeAs('public/item_images', $newName);
+                $images[] = $newName;
+            }
         }
 
         $item = new Item();
@@ -64,7 +80,7 @@ class ItemController extends Controller
         $item->description = $request->description;
         $item->status = $request->status;
         $item->category_id = $request->category_id;
-        $item->image = $newName;
+        $item->item_images = json_encode($images);
         $item->save();
 
         return redirect()->route("item.index");

@@ -100,8 +100,10 @@
                                     {{ $item->status }}
                                 </td>
                                 <td>
-                                    <img src="{{ asset('storage/item_images/' . $item->image) }}"
-                                        class="w-[80px] rounded-full" alt="">
+                                    @foreach ($item->item_images as $image)
+                                        <img src="{{ asset('storage/item_images/' . $image) }}"
+                                            class="w-[80px] rounded-full" alt="">
+                                    @endforeach
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="capitalize">{{ $item->category->name }}</span>
@@ -139,7 +141,7 @@
                     </tbody>
                 </table>
                 <div class="mt-5">
-                    {{ $items->links('pagination::tailwind') }}
+                    {{-- {{ $items->links('pagination::tailwind') }} --}}
                 </div>
             </div>
 

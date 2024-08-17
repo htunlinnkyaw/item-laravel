@@ -59,7 +59,7 @@
                 <div>
                     <label for="image"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
-                    <input type="file" name="image" id="image" value="{{ old('image') }}"
+                    <input type="file" name="images[]" id="image" value="{{ old('image') }}" multiple
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="0" />
                     @error('stock')
