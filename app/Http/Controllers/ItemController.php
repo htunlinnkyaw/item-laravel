@@ -91,8 +91,11 @@ class ItemController extends Controller
      */
     public function show(string $id)
     {
-        $item = Item::find($id);
-        return view("item.detail", compact("item"));
+        $items = Item::find($id);
+
+        $items->item_images = json_decode($items->item_images, true);
+
+        return view("item.detail", compact("items"));
     }
 
     /**
@@ -102,6 +105,7 @@ class ItemController extends Controller
     {
         $categories = Category::all();
         $item = Item::find($id);
+        $item->item_images = json_decode($item->item_images, true);
         return view("item.edit", compact("item", "categories"));
     }
 
@@ -129,11 +133,24 @@ class ItemController extends Controller
         $item->status = $request->status;
         $item->category_id = $request->category_id;
 
-        if ($request->image) {
-            $file = $request->image;
-            $newName = "item_image" . uniqid() . "." . $file->extension();
-            $file->storeAs('public/item_images', $newName);
-            $item->image = $newName;
+        // if ($request->image) {
+        //     $file = $request->image;
+        //     $newName = "item_image" . uniqid() . "." . $file->extension();
+        //     $file->storeAs('public/item_images', $newName);
+        //     $item->image = $newName;
+        // }
+
+        $images = [];
+
+        if ($request->images) {
+            foreach ($request->file('images') as $file) {
+                $newName = "item_image" . uniqid() . "." . $file->extension();
+                $file->storeAs('public/item_images', $newName);
+                $images[] = $newName;
+            }
+
+
+            $item->item_images = json_encode($images);
         }
 
         $item->update();

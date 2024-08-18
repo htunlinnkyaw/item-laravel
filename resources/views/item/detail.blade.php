@@ -16,24 +16,30 @@
 
 
         <div
-            class="w-[600px] h-[400px] p-6 bg-white border-2  border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            class="w-[800px] h-[500px] p-6 bg-white border-2  border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <h1 class="text-2xl font-bold mb-2">Item Detail</h1>
+            <div class="flex gap-2">
+                @foreach ($items->item_images as $image)
+                    <img src="{{ asset('storage/item_images/' . $image) }}" width="100" alt="">
+                @endforeach
+            </div>
+
             <ul class="my-3  border  text-black p-5">
                 <li class="bg-gray-300 mb-3 px-3 py-1 text-black rounded"><span
                         class="font-bold text-gray-600">Name</span> -
-                    {{ $item->name }}</li>
+                    {{ $items->name }}</li>
                 <li class="bg-gray-300 mb-3 px-3 py-1 text-black rounded"><span
                         class="font-bold text-gray-600">Price</span> - $
-                    {{ $item->price }}</li>
+                    {{ $items->price }}</li>
                 <li class="bg-gray-300 mb-3 px-3 py-1 text-black rounded"><span
                         class="font-bold text-gray-600">Stock</span> -
-                    {{ $item->stock }}</li>
+                    {{ $items->stock }}</li>
                 <li class="bg-gray-300 mb-3 px-3 py-1 text-black rounded"><span
                         class="font-bold text-gray-600">Status</span> - <span
-                        class="capitalize">{{ $item->status }}</span></li>
+                        class="capitalize">{{ $items->status }}</span></li>
                 <li class="bg-gray-300 mb-3 px-3 py-1 text-black rounded"><span
                         class="font-bold text-gray-600">Category</span> -
-                    {{ $item->category->name }}</li>
+                    {{ $items->category->name }}</li>
             </ul>
             <a href="{{ route('item.index') }}"
                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
