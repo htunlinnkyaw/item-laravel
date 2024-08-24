@@ -16,6 +16,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    // public function posts()
+    // {
+    //     return $this->belongsToMany(Post::class);
+    // }
+
     protected $fillable = [
         'name',
         'email',
@@ -43,5 +49,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function post()
+    {
+        return $this->hasOne(Post::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 }
