@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -14,8 +15,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::find(1);
-        return $post->user()->get();
+        $post = Post::find(6);
+        $user = $post->user()->get();
+
+        $countryId = $user[0]['country_id'];
+        $countryName = Country::find($countryId);
+
+        return $countryName;
     }
 
     /**

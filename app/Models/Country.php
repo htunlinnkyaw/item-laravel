@@ -9,13 +9,13 @@ class Country extends Model
 {
     use HasFactory;
 
-    public function user()
+    public function users()
     {
-        return $this->hasOne(User::class);
+        return $this->hasMany(User::class);
     }
 
-    public function post()
+    public function posts()
     {
-        return $this->hasOneThrough(Post::class, User::class);
+        return $this->hasManyThrough(Post::class, User::class);
     }
 }

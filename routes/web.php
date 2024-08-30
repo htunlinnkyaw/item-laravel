@@ -13,13 +13,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('item', ItemController::class);
-Route::resource('category', CategoryController::class);
+// Route::resource('item', ItemController::class);
+// Route::resource('category', CategoryController::class);
 
-Route::resource('person', PersonController::class);
-Route::resource('phone', PhoneController::class);
-Route::get('/search', [ItemController::class, 'search'])->name('item.search');
+// Route::resource('person', PersonController::class);
+// Route::resource('phone', PhoneController::class);
+// Route::get('/search', [ItemController::class, 'search'])->name('item.search');
 
-Route::resource('user', UserController::class);
-Route::resource('post', PostController::class);
-Route::resource('country', CountryController::class);
+// Route::resource('user', UserController::class);
+// Route::resource('post', PostController::class);
+// Route::resource('country', CountryController::class);
