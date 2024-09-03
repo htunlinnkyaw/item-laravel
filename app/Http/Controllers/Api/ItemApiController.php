@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Storage;
 
 class ItemApiController extends Controller
 {
@@ -86,6 +87,19 @@ class ItemApiController extends Controller
         $item->description = $request->description;
         $item->status = $request->status;
         $item->category_id = $request->category_id;
+
+        $images = [];
+
+        if($request->item_images){
+            foreach($request->file('item_images') as $file){
+                $newNew = "item_image".uniqid()."." . $file->extension();
+                $file->storeAs('public/item_images', $newNew);
+                $images[] = $newNew;
+            }
+
+            $item->item_images = json_encode($images);
+        }
+
         $item->update();
 
         return response()->json(["message" => "Item is updated successfully."]);
@@ -98,6 +112,15 @@ class ItemApiController extends Controller
     {
         $item = Item::find($id);
         if ($item) {
+
+            $images = json_decode($item->item_images);
+
+            if ($images) {
+                foreach ($images as $image) {
+                    Storage::delete('public/item_images/' . $image);
+                }
+            }
+
             $item->delete();
         }
 
