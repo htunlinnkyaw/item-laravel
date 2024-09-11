@@ -25,11 +25,13 @@ class ItemController extends Controller
     {
         $items = Item::all();
 
+        $appNome = config('app.appName');
+
         foreach ($items as $item) {
             $item->item_images = json_decode($item->item_images, true);
         }
 
-        return view('item.index', compact('items'));
+        return view('item.index', compact('items', 'appNome'));
     }
 
     /**

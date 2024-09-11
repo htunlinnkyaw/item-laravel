@@ -17,7 +17,7 @@
     <div class="container max-w-3xl mx-auto mt-10">
         <div>
 
-
+            {{ $fruit }} {{ $appName }}
 
             <a href="{{ route('category.create') }}"
                 class=" border bg-zinc-800 rounded text-white border-black px-4 py-2 hover:bg-zinc-700 font-serif">Create

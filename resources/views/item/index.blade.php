@@ -13,7 +13,7 @@
 <body>
 
 
-    {{-- {{ $items }} --}}
+    {{-- {{ $items }} --}} {{ $appNome }}
     <div class="container max-w-4xl mx-auto mt-10">
         <div>
 
