@@ -14,7 +14,22 @@ class ItemApiController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        // first method to show category
+        // $items = Item::with('category')->get();
+
+        // second method
+        $items = Item::with('category')->get()->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'price' => $item->price,
+                'stock' => $item->stock,
+                'description' => $item->description,
+                'status' => $item->status,
+                'category_id' => $item->category->name,
+            ];
+        });
+
         return response()->json(["data" => $items, "message" => "data fetching successful"]);
     }
 
@@ -90,9 +105,9 @@ class ItemApiController extends Controller
 
         $images = [];
 
-        if($request->item_images){
-            foreach($request->file('item_images') as $file){
-                $newNew = "item_image".uniqid()."." . $file->extension();
+        if ($request->item_images) {
+            foreach ($request->file('item_images') as $file) {
+                $newNew = "item_image" . uniqid() . "." . $file->extension();
                 $file->storeAs('public/item_images', $newNew);
                 $images[] = $newNew;
             }

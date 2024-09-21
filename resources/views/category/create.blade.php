@@ -21,7 +21,7 @@
         <div
             class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
             <h1 class="text-xl font-bold">Category Create Form</h1>
-            {{ $fruit }}
+            {{-- {{ $fruit }} --}}
             <form class="space-y-6" action="{{ route('category.store') }}" method="post">
                 @csrf
                 <div>
