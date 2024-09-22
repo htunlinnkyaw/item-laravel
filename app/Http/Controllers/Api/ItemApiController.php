@@ -76,7 +76,11 @@ class ItemApiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $item = Item::find($id);
+        return response()->json([
+            'item' => $item,
+            'message' => 'success'
+        ]);
     }
 
     /**

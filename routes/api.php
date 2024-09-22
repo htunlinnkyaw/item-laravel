@@ -18,6 +18,7 @@ Route::get("/item", function () {
 // Route::put('/category/{id}', [CategoryApiController::class, 'update']);
 // Route::delete('/category/{id}', [CategoryApiController::class, 'destroy']);
 
+Route::get('category/search', [CategoryApiController::class, 'search']);
 Route::apiResource('category', CategoryApiController::class);
 
 Route::apiResource('item', ItemApiController::class);

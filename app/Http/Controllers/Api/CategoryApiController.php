@@ -11,6 +11,23 @@ class CategoryApiController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function search(Request $request)
+    {
+        if ($request->name) {
+            $category = Category::where('name', 'LIKE', "%{$request->name}%")->get();
+
+            return response()->json([
+                'category' => $category,
+                'message' => 'success'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Not Found Searching Data'
+        ]);
+    }
+
     public function index()
     {
         $categories = Category::all();
@@ -43,7 +60,11 @@ class CategoryApiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Category::find($id);
+        return response()->json([
+            'category' => $category,
+            'message' => 'success'
+        ]);
     }
 
     /**
