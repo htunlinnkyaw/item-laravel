@@ -30,8 +30,18 @@ class CategoryApiController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
-        return response()->json(["data" => $categories, "message" => "success"]);
+        // $categories = Category::all();
+        // $categories = Category::all()->makeHidden(['created_at', 'updated_at']);
+        $categories = Category::select('id', 'name', 'description')->get();
+
+        if ($categories->isEmpty()) {
+            return apiResponse(null, 'Categories not found ', 404);
+        }
+
+        return apiResponse($categories, 'success', 200);
+
+
+
     }
 
     /**

@@ -12,6 +12,27 @@ class ItemApiController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function search(Request $request)
+    {
+        if ($request) {
+            $item = Item::orWhere('name', 'LIKE', "%{$request->name}%")
+                ->orWhere('price', $request->price)
+                ->orWhere('stock', $request->stock)
+                ->get();
+
+            return response()->json([
+                'item' => $item,
+                'message' => 'success'
+            ]);
+
+
+        }
+
+        return response()->json([
+            'message' => 'Not Found Searching Data'
+        ]);
+    }
+
     public function index()
     {
         // first method to show category

@@ -21,4 +21,5 @@ Route::get("/item", function () {
 Route::get('category/search', [CategoryApiController::class, 'search']);
 Route::apiResource('category', CategoryApiController::class);
 
+Route::get('item/search', [ItemApiController::class, 'search']);
 Route::apiResource('item', ItemApiController::class);
