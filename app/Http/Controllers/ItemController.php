@@ -58,7 +58,7 @@ class ItemController extends Controller
 
         ]);
 
-        // signle file upload
+        // single file upload
         // if ($request->image) {
         //     $file = $request->image;
         //     $newName = "item_image" . uniqid() . "." . $file->extension();

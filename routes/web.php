@@ -14,15 +14,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::resource('person', PersonController::class);
-// Route::resource('phone', PhoneController::class);
-Route::get('/search', [ItemController::class, 'search'])->name('item.search');
-Route::resource('item', ItemController::class);
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('item', ItemController::class);
+});
 Route::resource('category', CategoryController::class);
 
-// Route::resource('user', UserController::class);
-// Route::resource('post', PostController::class);
-// Route::resource('country', CountryController::class);
+
+Route::resource('user', UserController::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -81,9 +82,12 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->update();
+        DB::table('categories')
+            ->where('id', $category->id)
+            ->update(['name' => $request->name, 'description' => $request->description]);
+        // $category->name = $request->name;
+        // $category->description = $request->description;
+        // $category->update();
         return redirect()->route('category.index')->with('update', 'Category is Successfully Updated.');
     }
 
@@ -93,7 +97,8 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if ($category) {
-            $category->delete();
+            // $category->delete();
+            DB::table('categories')->where('id', $category->id)->delete();
         }
         return redirect()->route('category.index')->with('delete', 'Category is Successfully Removed.');
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,9 +14,56 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::find(1);
+        // $user = User::find(1);
 
-        return $user->posts()->get();
+        // return $user->posts()->get();
+
+
+
+        // this is the query builder way
+
+        // $user = DB::table('users')->pluck('name', 'email');
+
+        // $user = DB::table('users')->select('id', 'name', 'email')->get();
+        // $user = DB::table('users')->get();
+        // $user = DB::table('users')->where('id', '>', 10)->get();
+        // $user = DB::table('users')
+        //     ->where('id', '>', 10)
+        //     ->orderBy('name', 'desc')->get();
+        // return $user;
+
+        // $collection = collect([1, 2, 3, 4, 5, 6]);
+        // $result = $collection->filter(function ($item) {
+        //     return $item > 2;
+        // });
+        // return $result;
+
+        // $users = User::all();
+        // $filterActiveUser = $users->filter(function ($user) {
+        //     return $user->status == 'active';
+        // });
+        // return $filterActiveUser;
+
+        // $user = User::all();
+        // $nameToUpperCase = $user->map(function ($user) {
+        //     return strtoupper($user->name);
+        // });
+        // return $nameToUpperCase;
+
+        // $users = User::all()->pluck('email');
+        // return $users;
+
+        // $users = User::all();
+        // $sortedUsers = $users->sortBy('name');
+        // return $sortedUsers;
+        // print_r($sortedUsers->values()->all());
+
+        // $users = User::all();
+        // $hasEmail = $users->pluck('email')->contains('asf@example.com');
+        // return $hasEmail ? 'Email is present' : 'Email is not present';
+
+        // $users = User::where('status', 'active')->get()->last(); // first,count methods exist
+        // return $users;
     }
 
     /**
@@ -33,12 +81,17 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // return $request;
-        $user = new User();
-        $user->name = $request->name;
-        $user->save();
+        // $user = new User();
+        // $user->name = $request->name;
+        // $user->save();
 
-        $user->posts()->attach($request->post_ids);
-        return redirect()->back();
+        // $user->posts()->attach($request->post_ids);
+        // return redirect()->back();
+
+        DB::table('users')->insert([
+            'name' => $request->name,
+            'email' => 'admin@example.com',
+        ]);
     }
 
     /**
